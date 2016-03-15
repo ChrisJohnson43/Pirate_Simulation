@@ -34,10 +34,10 @@ TEST_CASE( "Ship objects are tested", "[Ship]")
         REQUIRE( cargo_ship.Ypos() == 0);
         
         REQUIRE( captured_ship.Xpos() == 0);
-        REQUIRE( captured_ship.Ypos() == -1);
+        REQUIRE( captured_ship.Ypos() == 1);
 
-        REQUIRE( escort_ship.Xpos() == 0);
-        REQUIRE( escort_ship.Ypos() == -1);
+        REQUIRE( escort_ship.Xpos() == -2);
+        REQUIRE( escort_ship.Ypos() == 0);
     }
     SECTION( "Testing Ship::SetType()" ) 
     {

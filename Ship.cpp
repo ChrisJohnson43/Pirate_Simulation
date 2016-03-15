@@ -26,7 +26,8 @@ Ship::Ship(int x, int y, int val, Ship_Type::Enum ship_type)
     else if ( type == Ship_Type::Cargo) d_x = 1;
     else if ( type == Ship_Type::Escort) d_x = -2;
     else 
-        std::cout << "Error!  Invalid Ship_type::Enum ship_type passed to Ship::Ship()" << std::endl;
+        d_y = 1;
+       // std::cout << "Error!  Invalid Ship_type::Enum ship_type passed to Ship::Ship()" << std::endl;
 }
 
 int Ship::Xpos() {
@@ -40,6 +41,27 @@ int Ship::Ypos()
 
 void Ship::SetType(Ship_Type::Enum ship_type) {
    type = ship_type; 
+   switch (type)
+   {
+       case Ship_Type::Pirate:{ 
+                        d_x = -1;
+                        d_y = 0; 
+                        break;
+                   }
+       case Ship_Type::Cargo:{    d_x = 1;
+                        d_y = 0;
+                        break;
+                   }
+       case Ship_Type::Captured:{   d_x = 1;
+                          d_y = 0;
+                          break;
+                      }
+       case Ship_Type::Escort:{   d_x = -2;
+                        d_y = 0;
+                        break;   
+                    }
+        default: break;
+   }
 }
 
 Ship_Type::Enum Ship::Type() 
