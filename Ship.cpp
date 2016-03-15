@@ -1,6 +1,8 @@
-
-
-
+//=======================================================================
+// File:  Ship class.  The Ship class is used for all four types of Ships.
+//
+// Date:    Feb. 21, 2016
+//=======================================================================
 
 #include"Ship_Type_Enum"
 #include"Ship.hpp"
@@ -38,4 +40,9 @@ int Ship::Ypos()
 
 void Ship::SetType(Ship_Type::Enum ship_type) {
    type = ship_type; 
+}
+
+Ship_Type::Enum Ship::Type() 
+{
+    return type;
 }

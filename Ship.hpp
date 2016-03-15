@@ -1,7 +1,8 @@
-
-
-
-
+//=======================================================================
+// File:  Ship class.  The Ship class is used for all four types of Ships.
+//
+// Date:    Feb. 21, 2016
+//=======================================================================
 
 
 #ifndef SHIP_H
@@ -13,12 +14,13 @@
 class Ship
 {
 public:
-    Ship (int x, int y, int val, Ship_Type::Enum ship_type);
+    Ship (int x, int y, int val, Ship_Type::Enum ship_type);    // Will need to set d_x, d_y based on Ship_Type::Enum ship_type.  Eg. (ship_type == Pirate) d_x = 0; d_y = -1;  Pirate ships move 1 grid North each time unit.
     virtual ~Ship ();
-    void move(){};
-    int Xpos() {};
-    int Ypos() {};
-    void SetType(Ship_Type::Enum ship_type);
+    void Move();                    // Changes the Ship location by the following: x_pos += d_x; y_pos += d_y;
+    int Xpos() ;                    // Returns x_pos
+    int Ypos() ;                    // Returns y_pos
+    void SetType(Ship_Type::Enum ship_type);    // Changes Ship_Type::Enum type
+    Ship_Type::Enum Type();         // returns the Ship.type
 private:
     int x_pos;
     int y_pos;
