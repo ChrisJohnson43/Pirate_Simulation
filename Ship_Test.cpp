@@ -5,7 +5,7 @@
 //=======================================================================
 
 #define CATCH_CONFIG_MAIN
-#include "/Users/chrisjohnson43/Pirate_Simulation/Catch/single_include/catch.hpp"
+#include "catch.hpp"
 #include"Ship_Type_Enum.hpp"
 #include"Ship.hpp"
 

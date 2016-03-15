@@ -4,9 +4,9 @@
 // Date:    Feb. 21, 2016
 //=======================================================================
 
-#include"Ship_Type_Enum"
+#include"Ship_Type_Enum.hpp"
 #include"Ship.hpp"
-
+#include<iostream>
 
 void Ship::Move() {
     x_pos += d_x; 
@@ -22,9 +22,9 @@ Ship::Ship(int x, int y, int val, Ship_Type::Enum ship_type)
     d_x = 0;
     d_y = 0;
 
-    if (type == Pirate)  d_y = -1;
-    else if ( type == Cargo) d_x = 1;
-    else if ( type == Escort) d_x = -2;
+    if (type == Ship_Type::Pirate)  d_y = -1;
+    else if ( type == Ship_Type::Cargo) d_x = 1;
+    else if ( type == Ship_Type::Escort) d_x = -2;
     else 
         std::cout << "Error!  Invalid Ship_type::Enum ship_type passed to Ship::Ship()" << std::endl;
 }
@@ -45,4 +45,8 @@ void Ship::SetType(Ship_Type::Enum ship_type) {
 Ship_Type::Enum Ship::Type() 
 {
     return type;
+}
+
+Ship::~Ship()
+{
 }
