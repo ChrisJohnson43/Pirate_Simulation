@@ -41,6 +41,7 @@ private:
     void IncNumCargos();
     void IncNumCaptureds();
     void IncNumEscorts();
+    bool IsOutOfBounds(Ship* ship_ptr);
 };
 
 

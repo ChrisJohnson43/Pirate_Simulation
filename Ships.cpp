@@ -17,8 +17,35 @@ int CARGO_PROB = 50;
 int ESCORT_PROB = 25;
 
 void Ships::Move() {
+    Ship* ship_ptr;
     for (auto it = ship_list.begin(); it != ship_list.end(); it++)
+    {
         it->Move();
+        ship_ptr = &(*it);
+        if (IsOutOfBounds(ship_ptr))
+        {
+            RemoveShip(it->Value()); 
+        }
+    }
+}
+
+bool Ships::IsOutOfBounds(Ship* ship_ptr)
+{
+    switch (type) {
+        case Ship_Type::Escort:
+            break;
+            if (ship_ptr->Xpos() < 0) return true;
+        case Ship_Type::Pirate:
+            if (ship_ptr->Ypos() < 0) return true;
+            break;
+        case Ship_Type::Cargo:
+            if (ship_ptr->Xpos() > (num_x - 1)) return true;
+            break;
+        case Ship_Type::Captured:
+            if (ship_ptr->Ypos() > (num_y - 1)) return true;
+            break;
+    }
+    return false;
 }
 
 void Ships::Gen() {
