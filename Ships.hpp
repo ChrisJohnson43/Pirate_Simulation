@@ -13,7 +13,7 @@
 class Ships
 {
 public:
-    Ships::Ships(double prob, Ship_Type::Enum type)
+    Ships(int prob, Ship_Type::Enum ship_type);
     virtual ~Ships ();
     void Move();            // iterates through forward_list and calls Ship::Move() for each ship
     void Gen();               // Ship::Gen() methods handles random ship generation for each turn.  It will call Ships::Add*() after determining whether or not a Ship is generated and if so where it is generated. 
@@ -22,16 +22,25 @@ public:
     // Simulation::Capture(), or Ships::Gen().
     void AddCargoShip(Ship ship);        // adds cargo ship
     void AddCapturedShip(Ship ship);     // adds captured ship
-
 private:
+    static const int num_x;
+    static const int num_y;    // num of vertical cells
+    static int num_cargos;      // num of cargos generated for unique ID (Ship::value)
+    static int num_pirates;     // num of pirates generated for unique ID (Ship::value)
+    static int num_escorts;     // num of escorts generated for unique ID
+    static int num_captureds;    // num of captureds created for unique ID
     Ship_Type::Enum type;           // holds the type of ship the forward_list contains
-    forward_list<Ship> ship_list;  // forward_list instead of vector for the constant time delete
-    double probability;       // 0 <= x < 1; value used in gen method
+    std::forward_list<Ship> ship_list;  // forward_list instead of vector for the constant time delete
+    int probability;       // value used in gen method
     // The following two methods will be called by Ships::Gen() in the event a
     // Ship is to be generated.
     void AddPirateShip(Ship ship);       // adds pirate ship
     void AddEscortShip(Ship ship);       // adds escort ship
-
+    // the following four methods inc num_{cargos, pirates, escorts, captureds}
+    void IncNumPirates();
+    void IncNumCargos();
+    void IncNumCaptureds();
+    void IncNumEscorts();
 };
 
 

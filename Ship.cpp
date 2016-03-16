@@ -44,16 +44,16 @@ void Ship::SetType(Ship_Type::Enum ship_type) {
    switch (type)
    {
        case Ship_Type::Pirate:{ 
-                        d_x = -1;
-                        d_y = 0; 
+                        d_x = 0;
+                        d_y = -1; 
                         break;
                    }
        case Ship_Type::Cargo:{    d_x = 1;
                         d_y = 0;
                         break;
                    }
-       case Ship_Type::Captured:{   d_x = 1;
-                          d_y = 0;
+       case Ship_Type::Captured:{   d_x = 0;
+                          d_y = 1;
                           break;
                       }
        case Ship_Type::Escort:{   d_x = -2;
@@ -71,4 +71,9 @@ Ship_Type::Enum Ship::Type()
 
 Ship::~Ship()
 {
+}
+
+int Ship::Value()
+{
+    return value;
 }

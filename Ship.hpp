@@ -21,6 +21,7 @@ public:
     int Ypos() ;                    // Returns y_pos
     void SetType(Ship_Type::Enum ship_type);    // Changes Ship_Type::Enum type
     Ship_Type::Enum Type();         // returns the Ship.type
+    int Value();                    // returns the Ship.value
 private:
     int x_pos;
     int y_pos;

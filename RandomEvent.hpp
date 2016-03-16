@@ -12,16 +12,20 @@
 #include <stdlib.h>
 #include <random>
 
-bool isShipSpawned(double p){
-    double r = ((double) rand() / (RAND_MAX));                   // 0<r<1
-    return (r<p);
+bool IsShipSpawned(int x)
+{
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(1,100);
+
+    int r = distribution(generator);
+    return (r<=x);
 }
 
 
 // Function to randomly pick an integer number in the interval [1,n]
-int getNode(int n){
+int GetNode(int n){
     std::default_random_engine generator;
-    std::uniform_int_distribution<int> distribution(1,n);
+    std::uniform_int_distribution<int> distribution(0, (n - 1) );
     return distribution(generator);
 
 }

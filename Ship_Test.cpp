@@ -30,6 +30,14 @@ SCENARIO( "Ship objects are tested", "[Ship]")
             REQUIRE( captured_ship.Type() == Ship_Type::Captured );
             REQUIRE( escort_ship.Type() == Ship_Type::Escort );
         }
+        WHEN( "their value should be returned as it was given at instantiation" )
+        {
+            REQUIRE( pirate_ship.Value() == 0 );
+            REQUIRE( cargo_ship.Value() == 1);
+            REQUIRE( captured_ship.Value() == 2 );
+            REQUIRE( escort_ship.Value() == 3 );
+        }
+ 
         WHEN( "the ships are Move()d, their locations should be updated" )
         {
             pirate_ship.Move();
