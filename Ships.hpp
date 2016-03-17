@@ -22,6 +22,10 @@ public:
     // Simulation::Capture(), or Ships::Gen().
     void AddCargoShip(Ship ship);        // adds cargo ship
     void AddCapturedShip(Ship ship);     // adds captured ship
+    void AddPirateShip(Ship ship);       // adds pirate ship
+    void AddEscortShip(Ship ship);       // adds escort ship
+    const std::forward_list<Ship>* Iterator();  // return ship_list iterator
+  
 private:
     static const int num_x;
     static const int num_y;    // num of vertical cells
@@ -32,11 +36,7 @@ private:
     Ship_Type::Enum type;           // holds the type of ship the forward_list contains
     std::forward_list<Ship> ship_list;  // forward_list instead of vector for the constant time delete
     int probability;       // value used in gen method
-    // The following two methods will be called by Ships::Gen() in the event a
-    // Ship is to be generated.
-    void AddPirateShip(Ship ship);       // adds pirate ship
-    void AddEscortShip(Ship ship);       // adds escort ship
-    // the following four methods inc num_{cargos, pirates, escorts, captureds}
+   // the following four methods inc num_{cargos, pirates, escorts, captureds}
     void IncNumPirates();
     void IncNumCargos();
     void IncNumCaptureds();

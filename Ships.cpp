@@ -94,22 +94,22 @@ Ships::~Ships()
 
 void Ships::AddCargoShip(Ship ship) {
     ship_list.push_front (ship);
-    IncNumCargos();
+    num_cargos++;
 }
    
 void Ships::AddPirateShip(Ship ship) {
     ship_list.push_front (ship);
-    IncNumPirates();
+    num_pirates++;
 }
 
 void Ships::AddEscortShip(Ship ship) {
     ship_list.push_front (ship);
-    IncNumEscorts();
+    num_escorts++;
 }
  
 void Ships::AddCapturedShip(Ship ship) {
     ship_list.push_front (ship);
-    IncNumCaptureds();
+    num_captureds++;
 }
 
 void Ships::RemoveShip(int val) {
@@ -124,26 +124,14 @@ void Ships::RemoveShip(int val) {
     }
 }
 
-void Ships::IncNumPirates()
+const std::forward_list<Ship>*  Ships::Iterator()
 {
-    num_pirates++;
-    return;
+    return &ship_list;
 }
 
-void Ships::IncNumCargos()
-{
-    num_cargos++;
-    return;
-}
-
-void Ships::IncNumCaptureds()
-{
-    num_captureds++;
-    return;
-}
-
-void Ships::IncNumEscorts()
-{
-    num_escorts++;
-    return;
-}
+const int Ships::num_x = 0;
+const int Ships::num_y = 0;
+int Ships::num_cargos = 0;
+int Ships::num_escorts=0;
+int Ships::num_pirates=0;
+int Ships::num_captureds=0;
