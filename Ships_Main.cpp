@@ -60,4 +60,19 @@ int main()
         i++;
     }
 
+    std::cout << "Gen() Test==================================" << std::endl;
+    for (int j =0; j < 100; j++)
+    {
+        std::cout << "Calling Move() and Gen()" << std::endl;
+        p_ships.Move();
+        p_ships.Gen();
+        int i = 1;
+        for (auto it = p_ships.GetList().begin(); it != p_ships.GetList().end(); it++)
+        {
+            Ship ship = *it;
+            std::cout <<i<< "\t("  << ship.Xpos() << ", "<< ship.Ypos()<<")" << std::endl;
+            i++;
+        }
+    }
+
 }
