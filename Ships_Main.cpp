@@ -19,7 +19,7 @@ int main()
 
     for (int i =0; i < 10; i++)
     {
-        Ship ship= Ship(i, 0, i, Ship_Type::Pirate);
+        Ship ship= Ship(i, num_y - 1, i, Ship_Type::Pirate);
         Ship car= Ship(0, i, i, Ship_Type::Cargo);
         Ship esc= Ship(num_x - 1, i, i, Ship_Type::Escort);
         Ship cap= Ship(i, num_y - 1, i, Ship_Type::Captured);
@@ -45,4 +45,19 @@ int main()
         std::cout <<i<< "\t("  << ship.Xpos() << ", "<< ship.Ypos()<<")" << std::endl;
         i++;
     }
+
+    p_ships.Move();
+
+    std::cout << "Move the pirate ships and print again." << std::endl;
+
+    const std::forward_list<Ship> p_list = p_ships.GetList(); 
+    i = 1;
+    std::cout << "Pirate Ships: "<< std::endl;
+    for (auto it = p_list.begin(); it != p_list.end(); it++)
+    {
+        Ship ship = *it;
+        std::cout <<i<< "\t("  << ship.Xpos() << ", "<< ship.Ypos()<<")" << std::endl;
+        i++;
+    }
+
 }
