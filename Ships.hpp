@@ -9,6 +9,7 @@
 
 #include"Ship_Type_Enum.hpp"
 #include"Ship.hpp"
+#include<forward_list>
 
 class Ships
 {
@@ -24,11 +25,11 @@ public:
     void AddCapturedShip(Ship ship);     // adds captured ship
     void AddPirateShip(Ship ship);       // adds pirate ship
     void AddEscortShip(Ship ship);       // adds escort ship
-    const std::forward_list<Ship>* Iterator();  // return ship_list iterator
+    const std::forward_list<Ship> GetList() const;  // return ship_list 
   
 private:
-    static const int num_x;
-    static const int num_y;    // num of vertical cells
+    static const int num_x=35;
+    static const int num_y=20;    // num of vertical cells
     static int num_cargos;      // num of cargos generated for unique ID (Ship::value)
     static int num_pirates;     // num of pirates generated for unique ID (Ship::value)
     static int num_escorts;     // num of escorts generated for unique ID
@@ -37,10 +38,6 @@ private:
     std::forward_list<Ship> ship_list;  // forward_list instead of vector for the constant time delete
     int probability;       // value used in gen method
    // the following four methods inc num_{cargos, pirates, escorts, captureds}
-    void IncNumPirates();
-    void IncNumCargos();
-    void IncNumCaptureds();
-    void IncNumEscorts();
     bool IsOutOfBounds(Ship* ship_ptr);
 };
 

@@ -16,6 +16,11 @@ int PIRATE_PROB = 40;
 int CARGO_PROB = 50;
 int ESCORT_PROB = 25;
 
+int Ships::num_cargos = 0;
+int Ships::num_escorts=0;
+int Ships::num_pirates=0;
+int Ships::num_captureds=0;
+
 void Ships::Move() {
     Ship* ship_ptr;
     for (auto it = ship_list.begin(); it != ship_list.end(); it++)
@@ -124,14 +129,8 @@ void Ships::RemoveShip(int val) {
     }
 }
 
-const std::forward_list<Ship>*  Ships::Iterator()
+const std::forward_list<Ship>  Ships::GetList() const 
 {
-    return &ship_list;
+    return ship_list;
 }
 
-const int Ships::num_x = 0;
-const int Ships::num_y = 0;
-int Ships::num_cargos = 0;
-int Ships::num_escorts=0;
-int Ships::num_pirates=0;
-int Ships::num_captureds=0;
