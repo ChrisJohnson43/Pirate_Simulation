@@ -26,6 +26,8 @@ public:
     void AddPirateShip(Ship ship);       // adds pirate ship
     void AddEscortShip(Ship ship);       // adds escort ship
     const std::forward_list<Ship> GetList() const;  // return ship_list 
+    std::forward_list<Ship>::iterator Begin() ;      // return iterator
+    std::forward_list<Ship>::iterator End() ;        // return last address
   
 private:
     static const int num_x=35;
