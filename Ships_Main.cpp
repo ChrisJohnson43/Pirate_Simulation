@@ -23,10 +23,10 @@ int main()
     out_file.open("test.txt");
     assert(out_file.is_open());
 
-    Ships p_ships = Ships(P_PROB, Ship_Type::Pirate);
-    Ships car_ships = Ships(CAR_PROB, Ship_Type::Cargo);
-    Ships e_ships = Ships(E_PROB, Ship_Type::Escort);
-    Ships cap_ships = Ships(0, Ship_Type::Captured);
+    Ships p_ships = Ships(Ship_Type::Pirate, 40, 50, 25);
+    Ships car_ships = Ships(Ship_Type::Cargo, 40, 50, 25);
+    Ships e_ships = Ships(Ship_Type::Escort, 40, 50, 25);
+    Ships cap_ships = Ships(Ship_Type::Captured, 40, 50, 25);
 
     for (int i =0; i < 10; i++)
     {

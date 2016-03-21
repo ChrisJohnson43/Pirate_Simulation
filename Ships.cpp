@@ -13,10 +13,6 @@
 
 // The following ints are the percentage chance that a ship of that type will be
 // spwaned each time period
-int PIRATE_PROB = 40;
-int CARGO_PROB = 50;
-int ESCORT_PROB = 25;
-
 int Ships::num_cargos = 0;
 int Ships::num_escorts=0;
 int Ships::num_pirates=0;
@@ -62,7 +58,7 @@ void Ships::Gen() {
         case Ship_Type::Captured:
             break;
         case Ship_Type::Cargo:
-            if (IsShipSpawned(CARGO_PROB)) 
+            if (IsShipSpawned(cargo_prob)) 
             {
                 x_grid = 0;
                 y_grid = GetNode(num_y);
@@ -71,7 +67,7 @@ void Ships::Gen() {
             }
             break;
          case Ship_Type::Escort:
-            if (IsShipSpawned(ESCORT_PROB)) 
+            if (IsShipSpawned(escort_prob)) 
             {
                 x_grid = num_x - 1;
                 y_grid = GetNode(num_y);
@@ -80,7 +76,7 @@ void Ships::Gen() {
             }
             break;
          case Ship_Type::Pirate:
-            if (IsShipSpawned(PIRATE_PROB)) 
+            if (IsShipSpawned(pirate_prob)) 
             {
                 x_grid = GetNode(num_x);
                 y_grid = num_y - 1;
@@ -92,10 +88,12 @@ void Ships::Gen() {
     }
 }
 
-Ships::Ships(int prob, Ship_Type::Enum ship_type){
-    probability = prob;
+Ships::Ships(Ship_Type::Enum ship_type, int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB){
     type = ship_type;
     std::forward_list<Ship> ship_list;
+    pirate_prob = PIRATE_PROB;
+    cargo_prob = CARGO_PROB;
+    escort_prob = ESCORT_PROB;
 }
 
 Ships::~Ships()
@@ -148,8 +146,21 @@ std::forward_list<Ship>::iterator Ships::End()
 {
     return ship_list.end();
 }
+/*
+void Ships::SetPirateProb(int x)
+{
+    pirate_prob = x;
+}
 
+void Ships::SetCargoProb(int x)
+{
+    cargo_prob = x;
+}
 
-
+void Ships::SetEscortProb(int x)
+{
+    escort_prob = x;
+}
+*/
 
         

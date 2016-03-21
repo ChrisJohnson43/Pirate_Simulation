@@ -14,7 +14,7 @@
 class Ships
 {
 public:
-    Ships(int prob, Ship_Type::Enum ship_type);
+    Ships(Ship_Type::Enum ship_type, int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB);
     virtual ~Ships ();
     void Move();            // iterates through forward_list and calls Ship::Move() for each ship
     void Gen();               // Ship::Gen() methods handles random ship generation for each turn.  It will call Ships::Add*() after determining whether or not a Ship is generated and if so where it is generated. 
@@ -28,8 +28,15 @@ public:
     const std::forward_list<Ship> GetList() const;  // return ship_list 
     std::forward_list<Ship>::iterator Begin() ;      // return iterator
     std::forward_list<Ship>::iterator End() ;        // return last address
-  
+    /*
+    void SetCargoProb(int x);                       // sets the cargo spawn rate
+    void SetEscortProb(int x);                      // sets the escort spawn rate
+    void SetPirateProb(int x);                      // sets the pirate spawn rate
+ */ 
 private:
+    int pirate_prob;
+    int cargo_prob;
+    int escort_prob;
     static const int num_x=35;
     static const int num_y=20;    // num of vertical cells
     static int num_cargos;      // num of cargos generated for unique ID (Ship::value)
@@ -38,7 +45,6 @@ private:
     static int num_captureds;    // num of captureds created for unique ID
     Ship_Type::Enum type;           // holds the type of ship the forward_list contains
     std::forward_list<Ship> ship_list;  // forward_list instead of vector for the constant time delete
-    int probability;       // value used in gen method
    // the following four methods inc num_{cargos, pirates, escorts, captureds}
     bool IsOutOfBounds(Ship* ship_ptr);
 };
