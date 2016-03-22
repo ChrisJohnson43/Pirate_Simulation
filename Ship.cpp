@@ -16,6 +16,7 @@ void Ship::Move() {
 Ship::Ship(int x, int y, int val, Ship_Type::Enum ship_type) 
 {
     x_pos = x;
+    captured = false;
     y_pos = y;
     value = val;
     type = ship_type;
@@ -83,5 +84,20 @@ bool Ship::operator < (const Ship& ship)
     return (x_pos < ship.Xpos());
 }
 
- 
+bool Ship::IsAdjacent(int x, int y)
+{
+    // check to see if (this.x_pos, this.y_pos) is adjacent to (x, y)
+    // check x value first
+    if (x_pos >= (x-1) && x_pos <= (x+1)) {
+        // check y value
+        if (y_pos >= (y-1) && y_pos <= (y+1)) {
+            return true;
+        }
+    }
+    return false;
+}
 
+void Ship::SetCaptured(bool flag)
+{
+    captured = flag;
+}

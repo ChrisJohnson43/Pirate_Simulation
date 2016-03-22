@@ -54,8 +54,25 @@ void Generate()
 
 void Defeat()
 {
-}
+    std::forward_list<Ship>::iterator e_begin = escort_ships.Begin();
+    std::forward_list<Ship>::iterator e_end = escort_ships.End();
+    std::forward_list<Ship>::iterator p_begin;
+    std::forward_list<Ship>::iterator p_end;
 
+    // iterate through escort ships and for each iterate through pirate ships
+    // looking for the first adjacent pirate ship to delete.
+    for ( ; e_begin != e_end; e_begin++){
+        p_begin = pirate_ships.Begin();
+        p_end = pirate_ships.End();
+        for ( ; p_begin != p_end; p_end++){
+            if (p_begin.IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
+                pirate_ships.RemoveShip(p_begin.Value());
+                break;
+            }
+        }
+    }
+}
+    
 void IncCargosCaptured()
 {
     Counters.cargos_captured++;
@@ -173,6 +190,33 @@ void Simulation::BuildGrid()
 
 void Simulation::Capture()
 {
+    std::forward_list<Ship>::iterator p_begin = pirate_ships.Begin();
+    std::forward_list<Ship>::iterator p_end = pirate_ships.End();
+    std::forward_list<Ship>::iterator car_begin; 
+    std::forward_list<Ship>::iterator car_end;
+
+    // iterate through pirate ships and for each, iterate through cargo ships
+    // looking for the first adjacent cargo ship to capture. Captured cargo
+    // ships will be removed and in its place a captured ship will be created.
+    // The capturing pirate ship will have its Ship.captured flag set.  
+    for ( ; p_begin != p_end; p_begin++){
+       car_begin = cargo_ships.Begin();
+       car_end = cargo_ships.End();
+       for ( ; car_begin != car_end; car_end++){
+            if (car_begin.IsAdjacent(p_begin->Xpos(), p_begin->Ypos())){
+                p_begin->SetCaptured(true);
+                // create new captured ship in the same position as the cargo
+                // ship
+                Ship ship = Ship(car_begin->Xpos(), car_begin->Ypos(), num_captureds, Ship_Type::Captured);
+                captured_ships.AddCapturedShip(ship);
+                // delete the captured cargo ship
+                cargo_ships.RemoveShip(car_begin.Value());
+                break;
+            }
+        }
+    }
+    // iterate through pirate ships removing all ships that captured on this
+    // turn.
 }
 
 void Simulation::Rescue()

@@ -9,10 +9,10 @@
 class Console
 {
     private:
-        static constexpr char pirate_sym;   // character that notates a Pirate ship on the display
-        static constexpr char cargo_sym;
-        static constexpr char captured_sym;
-        static constexpr char escort_sym;
+        static const char pirate_sym;   // character that notates a Pirate ship on the display
+        static const char cargo_sym;
+        static const char captured_sym;
+        static const char escort_sym;
         Controller* control_ref;        // pointer to the Controller object
         void DisplayCounts();           // method used to output counts to console
         void DisplayMap();          // method used to output the map to console
