@@ -77,3 +77,11 @@ int Ship::Value()
 {
     return value;
 }
+
+bool Ship::operator < (const Ship& ship)
+{
+    return (x_pos < ship.Xpos());
+}
+
+ 
+

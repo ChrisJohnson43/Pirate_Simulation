@@ -25,14 +25,11 @@ public:
     void AddCapturedShip(Ship ship);     // adds captured ship
     void AddPirateShip(Ship ship);       // adds pirate ship
     void AddEscortShip(Ship ship);       // adds escort ship
-    const std::forward_list<Ship> GetList() const;  // return ship_list 
     std::forward_list<Ship>::iterator Begin() ;      // return iterator
     std::forward_list<Ship>::iterator End() ;        // return last address
-    /*
-    void SetCargoProb(int x);                       // sets the cargo spawn rate
-    void SetEscortProb(int x);                      // sets the escort spawn rate
-    void SetPirateProb(int x);                      // sets the pirate spawn rate
- */ 
+    void PrintList();                       // prints all elements to cout; [(x_pos, y_pos) value]
+    void SortList();                    // sort the list by Ship.x_pos
+
 private:
     int pirate_prob;
     int cargo_prob;
@@ -46,7 +43,7 @@ private:
     Ship_Type::Enum type;           // holds the type of ship the forward_list contains
     std::forward_list<Ship> ship_list;  // forward_list instead of vector for the constant time delete
    // the following four methods inc num_{cargos, pirates, escorts, captureds}
-    bool IsOutOfBounds(Ship* ship_ptr);
+    bool IsOutOfBounds(Ship* ship_ptr); // return true if ship is out of the grid bounds
 };
 
 

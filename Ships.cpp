@@ -84,7 +84,6 @@ void Ships::Gen() {
                 AddPirateShip(ship);               
             }
             break;
-            
     }
 }
 
@@ -132,11 +131,6 @@ void Ships::RemoveShip(int val) {
     }
 }
 
-const std::forward_list<Ship>  Ships::GetList() const 
-{
-    return ship_list;
-}
-
 std::forward_list<Ship>::iterator Ships::Begin() 
 {
     return ship_list.begin();
@@ -146,21 +140,17 @@ std::forward_list<Ship>::iterator Ships::End()
 {
     return ship_list.end();
 }
-/*
-void Ships::SetPirateProb(int x)
+
+void Ships::SortList()
 {
-    pirate_prob = x;
+    ship_list.sort();
 }
 
-void Ships::SetCargoProb(int x)
+void Ships::PrintList()
 {
-    cargo_prob = x;
+    for (auto it = ship_list.begin(); it != ship_list.end(); it++)
+    {
+        std::cout << "("<<it->Xpos()<<", "<<it->Ypos()<<")\t\t\tValue: "<< it->Value()<<std::endl;
+    }
 }
 
-void Ships::SetEscortProb(int x)
-{
-    escort_prob = x;
-}
-*/
-
-        

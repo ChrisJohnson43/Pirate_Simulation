@@ -130,6 +130,45 @@ int[num_x][num_y] Simulation::Grid()
 
 void Simulation::BuildGrid()
 {
+    // get iterator for each of the 4 forward_list member objects
+    std::forward_list<Ship>::iterator p_list_begin = p_ships.Begin();
+    std::forward_list<Ship>::iterator p_list_end = p_ships.End();
+    std::forward_list<Ship>::iterator car_list_begin = car_ships.Begin();
+    std::forward_list<Ship>::iterator car_list_end = car_ships.End();
+    std::forward_list<Ship>::iterator e_list_begin = e_ships.Begin();
+    std::forward_list<Ship>::iterator e_list_end = e_ships.End();
+    std::forward_list<Ship>::iterator cap_list_begin = cap_ships.Begin();
+    std::forward_list<Ship>::iterator cap_list_end = cap_ships.End();
+
+    // iterate through each forward_list and add each Ship to the grid[][]
+    for ( ; p_list_begin != p_list_end; p_list_begin++;)
+    {
+        if (grid[p_list_begin.Xpos()][p_list_begin.Ypos()] == -1) { 
+            grid[p_list_begin.Xpos()][p_list_begin.Ypos()] = Ship_Type::Pirate;
+        }
+    }
+
+    // iterate through each forward_list and add each Ship to the grid[][]
+    for ( ; car_list_begin != car_list_end; car_list_begin++;)
+    {
+        if (grid[car_list_begin.Xpos()][car_list_begin.Ypos()] == -1){
+            grid[car_list_begin.Xpos()][car_list_begin.Ypos()] = Ship_Type::Cargo;
+        }
+    }
+    // iterate through each forward_list and add each Ship to the grid[][]
+    for ( ; e_list_begin != e_list_end; e_list_begin++;)
+    {
+        if (grid[e_list_begin.Xpos()][e_list_begin.Ypos()] == -1) {
+            grid[e_list_begin.Xpos()][e_list_begin.Ypos()] = Ship_Type::Escort;
+        }
+    }
+    // iterate through each forward_list and add each Ship to the grid[][]
+    for ( ; cap_list_begin != cap_list_end; cap_list_begin++;)
+    {
+        if (grid[cap_list_begin.Xpos()][cap_list_begin.Ypos()] == -1){ 
+            grid[cap_list_begin.Xpos()][cap_list_begin.Ypos()] = Ship_Type::Captured;
+        }
+    }
 }
 
 void Simulation::Capture()

@@ -40,7 +40,30 @@ int main()
         e_ships.AddEscortShip(esc);
         cap_ships.AddCapturedShip(cap);
     }     
-   
+    
+    std::cout<<"Pirate Ships"<<std::endl;
+    p_ships.PrintList();
+    std::cout<< "Cargo Ships"<<std::endl;
+    car_ships.PrintList();
+    std::cout<<"Escort Ships"<<std::endl;
+    e_ships.PrintList();
+    std::cout<<"Captured Ships"<<std::endl;
+
+    std::cout<<"======================Sort Lists===================="<<std::endl;
+    p_ships.SortList();
+    car_ships.SortList();
+    e_ships.SortList();
+    cap_ships.SortList();
+
+    std::cout<<"Pirate Ships"<<std::endl;
+    p_ships.PrintList();
+    std::cout<< "Cargo Ships"<<std::endl;
+    car_ships.PrintList();
+    std::cout<<"Escort Ships"<<std::endl;
+    e_ships.PrintList();
+    std::cout<<"Captured Ships"<<std::endl;
+
+
     out_file << "Print out all pirate ship (x, y)" << std::endl;
 
     for (int j=1; j < 10; j+=2)
