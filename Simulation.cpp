@@ -215,12 +215,33 @@ void Simulation::Capture()
             }
         }
     }
-    // iterate through pirate ships removing all ships that captured on this
-    // turn.
+    // delete all pirate ships that captured on this turn
+    pirate_ships.RemoveCaptured();
 }
 
 void Simulation::Rescue()
 {
+    std::forward_list<Ship>::iterator e_begin = escort_ships.Begin();
+    std::forward_list<Ship>::iterator e_end = escort_ships.End();
+    std::forward_list<Ship>::iterator cap_begin;
+    std::forward_list<Ship>::iterator cap_end;
+
+    // iterate through escort ships and for each iterate through captured ships
+    // looking for the first adjacent captured ship to delete.
+    for ( ; e_begin != e_end; e_begin++){
+        cap_begin = captured_ships.Begin();
+        cap_end = captured_ships.End();
+        for ( ; cap_begin != cap_end; cap_end++){
+            if (cap_begin.IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
+                // cap_begin points to an adjacent captured.  create cargo in
+                // its place.  then remove captured
+                Ship ship = Ship(cap_begin.Xpos(), cap_begin.Ypos(), num_cargo, Ship_Type::Cargo);
+                cargo_ships.AddCargoShip(ship);
+                captured_ships.RemoveShip(cap_begin.Value());
+                break;
+            }
+        }
+    }
 }
 
 const counts* Simulation::Counters() const

@@ -79,7 +79,7 @@ int Ship::Value()
     return value;
 }
 
-bool Ship::operator < (const Ship& ship)
+bool Ship::operator < (Ship& ship)
 {
     return (x_pos < ship.Xpos());
 }
@@ -101,3 +101,9 @@ void Ship::SetCaptured(bool flag)
 {
     captured = flag;
 }
+
+bool Ship::GetCaptured()
+{
+    return captured;
+}
+

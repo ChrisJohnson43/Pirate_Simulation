@@ -140,12 +140,12 @@ std::forward_list<Ship>::iterator Ships::End()
 {
     return ship_list.end();
 }
-
+/*
 void Ships::SortList()
 {
     ship_list.sort();
 }
-
+*/
 void Ships::PrintList()
 {
     for (auto it = ship_list.begin(); it != ship_list.end(); it++)
@@ -154,3 +154,8 @@ void Ships::PrintList()
     }
 }
 
+bool remove_captured(Ship& ship){ return (ship.GetCaptured());}
+
+void Ships::RemoveCaptured() {
+    ship_list.remove_if(remove_captured); 
+} 

@@ -35,6 +35,9 @@ int main()
         Ship esc= Ship(num_x - 1, i, i, Ship_Type::Escort);
         Ship cap= Ship(i, num_y - 1, i, Ship_Type::Captured);
 
+        if (i % 2 == 0 ) {
+            ship.SetCaptured(true);
+        }
         p_ships.AddPirateShip(ship);
         car_ships.AddCargoShip(car);
         e_ships.AddEscortShip(esc);
@@ -43,26 +46,24 @@ int main()
     
     std::cout<<"Pirate Ships"<<std::endl;
     p_ships.PrintList();
+    /*
     std::cout<< "Cargo Ships"<<std::endl;
     car_ships.PrintList();
     std::cout<<"Escort Ships"<<std::endl;
     e_ships.PrintList();
     std::cout<<"Captured Ships"<<std::endl;
-
+*/
     std::cout<<"======================Sort Lists===================="<<std::endl;
-    p_ships.SortList();
-    car_ships.SortList();
-    e_ships.SortList();
-    cap_ships.SortList();
-
+    p_ships.RemoveCaptured();
     std::cout<<"Pirate Ships"<<std::endl;
     p_ships.PrintList();
+/*
     std::cout<< "Cargo Ships"<<std::endl;
     car_ships.PrintList();
     std::cout<<"Escort Ships"<<std::endl;
     e_ships.PrintList();
     std::cout<<"Captured Ships"<<std::endl;
-
+*/
 
     out_file << "Print out all pirate ship (x, y)" << std::endl;
 

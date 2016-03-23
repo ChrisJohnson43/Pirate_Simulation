@@ -28,7 +28,8 @@ public:
     std::forward_list<Ship>::iterator Begin() ;      // return iterator
     std::forward_list<Ship>::iterator End() ;        // return last address
     void PrintList();                       // prints all elements to cout; [(x_pos, y_pos) value]
-    void SortList();                    // sort the list by Ship.x_pos
+//    void SortList();                    // sort the list by Ship.x_pos
+    void RemoveCaptured();  // removes all Ships with Ship.captured == true
 
 private:
     int pirate_prob;

@@ -22,9 +22,10 @@ public:
     void SetType(Ship_Type::Enum ship_type);    // Changes Ship_Type::Enum type
     Ship_Type::Enum Type();         // returns the Ship.type
     int Value();                    // returns the Ship.value
-    bool operator < (const Ship& ship);
+    bool operator < (Ship& ship);
     bool IsAdjacent(int x, int y);  // returns bool: (this adjacent to (x, y))
     void SetCaptured(bool flag);    // sets the captured flag
+    bool GetCaptured();             // returns Ship.captured
 private:
     int x_pos;
     int y_pos;
