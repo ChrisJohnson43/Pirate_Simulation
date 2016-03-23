@@ -21,10 +21,10 @@ public:
     void RemoveShip(int val); // removes ship.value == val from ship_list 
     // The following two methods will either be called by Simulation::Rescue(),
     // Simulation::Capture(), or Ships::Gen().
-    void AddCargoShip(Ship ship);        // adds cargo ship
-    void AddCapturedShip(Ship ship);     // adds captured ship
-    void AddPirateShip(Ship ship);       // adds pirate ship
-    void AddEscortShip(Ship ship);       // adds escort ship
+    void AddCargoShip(int x, int y);        // adds cargo ship
+    void AddCapturedShip(int x, int y);     // adds captured ship
+    void AddPirateShip(int x, int y);       // adds pirate ship
+    void AddEscortShip(int x, int y);       // adds escort ship
     std::forward_list<Ship>::iterator Begin() ;      // return iterator
     std::forward_list<Ship>::iterator End() ;        // return last address
     void PrintList();                       // prints all elements to cout; [(x_pos, y_pos) value]

@@ -23,25 +23,17 @@ int main()
     out_file.open("test.txt");
     assert(out_file.is_open());
 
-    Ships p_ships = Ships(Ship_Type::Pirate, 40, 50, 25);
-    Ships car_ships = Ships(Ship_Type::Cargo, 40, 50, 25);
-    Ships e_ships = Ships(Ship_Type::Escort, 40, 50, 25);
+    Ships p_ships(Ship_Type::Pirate, 40, 50, 25);
+    Ships car_ships(Ship_Type::Cargo, 40, 50, 25);
+    Ships e_ships{Ship_Type::Escort, 40, 50, 25};
     Ships cap_ships = Ships(Ship_Type::Captured, 40, 50, 25);
 
     for (int i =0; i < 10; i++)
     {
-        Ship ship= Ship(i, num_y - 1, i, Ship_Type::Pirate);
-        Ship car= Ship(0, i, i, Ship_Type::Cargo);
-        Ship esc= Ship(num_x - 1, i, i, Ship_Type::Escort);
-        Ship cap= Ship(i, num_y - 1, i, Ship_Type::Captured);
-
-        if (i % 2 == 0 ) {
-            ship.SetCaptured(true);
-        }
-        p_ships.AddPirateShip(ship);
-        car_ships.AddCargoShip(car);
-        e_ships.AddEscortShip(esc);
-        cap_ships.AddCapturedShip(cap);
+        p_ships.AddPirateShip(i, num_y - 1);
+        car_ships.AddCargoShip(0, i);
+        e_ships.AddEscortShip(num_x - 1, i);
+        cap_ships.AddCapturedShip(i, num_y);
     }     
     
     std::cout<<"Pirate Ships"<<std::endl;

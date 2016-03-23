@@ -4,21 +4,31 @@
 // Date:    Jan. 21, 2016
 //=======================================================================
 
+#include"Simulation.hpp"
 #include"Ship_Type_Enum.hpp"
+#include"Counts.hpp"
 #include"Ship.hpp"
 #include"Ships.hpp"
-#include"Counts.hpp"
-#include"Simulation.hpp"
 
 const int num_x = 35;
 const int num_y = 20;
 
 Simulation::Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB)
+    :   pirate_ships{Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
+        cargo_ships{ Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
+        captured_ships{ Ship_Type::Captured,PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
+        escort_ships{ Ship_Type::Escort, PIRATE_PROB, CARGO_PROB, ESCORT_PROB}, 
+        pirate_prob(PIRATE_PROB),
+        cargo_prob(CARGO_PROB),
+        escort_prob(ESCORT_PROB) {}
+
+       /* 
 {
-    pirate_ships = Ships(Ship_Type::Pirates, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
+    pirate_ships = Ships(Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
     cargo_ships = Ships( Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
     captured_ships = Ships( Ship_Type::Captured,PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
     escort_ships = Ships( Ship_Type::Escort, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
+
     Counters = { 
         0,      // cargos_exited 
         0,      // cargos_entered
@@ -32,7 +42,7 @@ Simulation::Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB)
     };
     grid[num_x][num_y];
 }
-
+*/
 Simulation::~Simulation()
 {
 }
@@ -65,8 +75,8 @@ void Defeat()
         p_begin = pirate_ships.Begin();
         p_end = pirate_ships.End();
         for ( ; p_begin != p_end; p_end++){
-            if (p_begin.IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
-                pirate_ships.RemoveShip(p_begin.Value());
+            if (p_begin->IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
+                pirate_ships.RemoveShip(p_begin->Value());
                 break;
             }
         }
@@ -75,47 +85,47 @@ void Defeat()
     
 void IncCargosCaptured()
 {
-    Counters.cargos_captured++;
+    counters.cargos_captured++;
 }
 
 void IncPiratesDefeated()
 {
-    Counters.pirates_defeated++;
+    counters.pirates_defeated++;
 }
 
 void IncCapturedsRescued()
 {
-    Counters.captureds_rescued++;
+    counters.captureds_rescued++;
 }
 
 void IncEscortsExited()
 {
-    Counters.escorts_exited++;
+    counters.escorts_exited++;
 }
 
 void IncCargosEntered()
 {
-    Counters.cargos_entered++;
+    counters.cargos_entered++;
 }
 
 void IncPiratesExited()
 {
-    Counters.pirates_exited++;
+    counters.pirates_exited++;
 }
 
 void IncEscortsEntered()
 {
-    Counters.escorts_entered++;
+    counters.escorts_entered++;
 }
 
 void IncCargosExited()
 {
-    Counters.cargos_exited++;
+    counters.cargos_exited++;
 }
 
 void IncPiratesEntered()
 {
-    Counters.pirates_entered++;
+    counters.pirates_entered++;
 }
 
 void Simulation::Update()
@@ -137,7 +147,7 @@ void Simulation::Reset()
         }
     }
 }
-
+/*
 int[num_x][num_y] Simulation::Grid()
 {
     Reset();
@@ -187,7 +197,7 @@ void Simulation::BuildGrid()
         }
     }
 }
-
+*/
 void Simulation::Capture()
 {
     std::forward_list<Ship>::iterator p_begin = pirate_ships.Begin();
@@ -203,14 +213,13 @@ void Simulation::Capture()
        car_begin = cargo_ships.Begin();
        car_end = cargo_ships.End();
        for ( ; car_begin != car_end; car_end++){
-            if (car_begin.IsAdjacent(p_begin->Xpos(), p_begin->Ypos())){
+            if (car_begin->IsAdjacent(p_begin->Xpos(), p_begin->Ypos())){
                 p_begin->SetCaptured(true);
                 // create new captured ship in the same position as the cargo
                 // ship
-                Ship ship = Ship(car_begin->Xpos(), car_begin->Ypos(), num_captureds, Ship_Type::Captured);
-                captured_ships.AddCapturedShip(ship);
+                captured_ships.AddCapturedShip(car_begin->Xpos(), car_begin->Ypos());
                 // delete the captured cargo ship
-                cargo_ships.RemoveShip(car_begin.Value());
+                cargo_ships.RemoveShip(car_begin->Value());
                 break;
             }
         }
@@ -232,21 +241,20 @@ void Simulation::Rescue()
         cap_begin = captured_ships.Begin();
         cap_end = captured_ships.End();
         for ( ; cap_begin != cap_end; cap_end++){
-            if (cap_begin.IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
+            if (cap_begin->IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
                 // cap_begin points to an adjacent captured.  create cargo in
                 // its place.  then remove captured
-                Ship ship = Ship(cap_begin.Xpos(), cap_begin.Ypos(), num_cargo, Ship_Type::Cargo);
-                cargo_ships.AddCargoShip(ship);
-                captured_ships.RemoveShip(cap_begin.Value());
+                cargo_ships.AddCargoShip(cap_begin->Xpos(), cap_begin->Ypos());
+                captured_ships.RemoveShip(cap_begin->Value());
                 break;
             }
         }
     }
 }
 
-const counts* Simulation::Counters() const
+const Counts* Simulation::GetCounters() const
 {
-    return &Counters;
+    return &counters;
 }
 
 

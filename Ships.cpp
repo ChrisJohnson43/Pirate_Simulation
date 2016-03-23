@@ -62,8 +62,7 @@ void Ships::Gen() {
             {
                 x_grid = 0;
                 y_grid = GetNode(num_y);
-                Ship ship = Ship(x_grid, y_grid, num_cargos, type ); 
-                AddCargoShip(ship);
+                AddCargoShip(x_grid, y_grid);
             }
             break;
          case Ship_Type::Escort:
@@ -71,8 +70,7 @@ void Ships::Gen() {
             {
                 x_grid = num_x - 1;
                 y_grid = GetNode(num_y);
-                Ship ship = Ship(x_grid, y_grid, num_escorts, type); 
-                AddEscortShip(ship);                              
+                AddEscortShip(x_grid, y_grid);                              
             }
             break;
          case Ship_Type::Pirate:
@@ -80,8 +78,7 @@ void Ships::Gen() {
             {
                 x_grid = GetNode(num_x);
                 y_grid = num_y - 1;
-                Ship ship = Ship(x_grid, y_grid, num_pirates, type); 
-                AddPirateShip(ship);               
+                AddPirateShip(x_grid, y_grid);               
             }
             break;
     }
@@ -99,22 +96,26 @@ Ships::~Ships()
 {
 }
 
-void Ships::AddCargoShip(Ship ship) {
+void Ships::AddCargoShip(int x, int y) {
+    Ship ship = Ship(x, y, num_cargos, Ship_Type::Cargo);
     ship_list.push_front (ship);
     num_cargos++;
 }
    
-void Ships::AddPirateShip(Ship ship) {
+void Ships::AddPirateShip(int x, int y) {
+    Ship ship = Ship(x, y, num_pirates, Ship_Type::Pirate);
     ship_list.push_front (ship);
     num_pirates++;
 }
 
-void Ships::AddEscortShip(Ship ship) {
+void Ships::AddEscortShip(int x, int y) {
+    Ship ship = Ship(x, y, num_escorts, Ship_Type::Escort);
     ship_list.push_front (ship);
     num_escorts++;
 }
  
-void Ships::AddCapturedShip(Ship ship) {
+void Ships::AddCapturedShip(int x, int y) {
+    Ship ship = Ship(x, y, num_captureds, Ship_Type::Captured);
     ship_list.push_front (ship);
     num_captureds++;
 }

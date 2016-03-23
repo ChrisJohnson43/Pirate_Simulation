@@ -14,6 +14,15 @@ struct Counts {
     unsigned int pirates_defeated;
     unsigned int captureds_rescued;
     unsigned int cargos_captured; 
+    Counts() : cargos_exited(0),
+                cargos_entered(0),
+                escorts_entered(0),
+                escorts_exited(0),
+                pirates_exited(0),
+                pirates_entered(0),
+                pirates_defeated(0),
+                captureds_rescued(0),
+                cargos_captured(0) {}
 };
 
 
