@@ -36,6 +36,7 @@ class Simulation
     
   public:
     Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB);
+/*
     Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB)
         :   pirate_ships{Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
             cargo_ships{ Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
@@ -44,7 +45,7 @@ class Simulation
             pirate_prob(PIRATE_PROB),
             cargo_prob(CARGO_PROB),
             escort_prob(ESCORT_PROB) {}
-
+*/
 
     virtual ~Simulation();
     const Counts* GetCounters() const;     // returns reference to the counters struct

@@ -13,6 +13,7 @@
 const int num_x = 35;
 const int num_y = 20;
 
+
 Simulation::Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB)
     :   pirate_ships{Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
         cargo_ships{ Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
@@ -22,7 +23,7 @@ Simulation::Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB)
         cargo_prob(CARGO_PROB),
         escort_prob(ESCORT_PROB) {}
 
-       /* 
+/*        
 {
     pirate_ships = Ships(Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
     cargo_ships = Ships( Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
@@ -55,14 +56,14 @@ void Simulation::Move()
     escort_ships.Move();
 }
 
-void Generate()
+void Simulation::Generate()
 {
     cargo_ships.Gen();
     pirate_ships.Gen();
     escort_ships.Gen();
 }
 
-void Defeat()
+void Simulation::Defeat()
 {
     std::forward_list<Ship>::iterator e_begin = escort_ships.Begin();
     std::forward_list<Ship>::iterator e_end = escort_ships.End();
@@ -83,47 +84,47 @@ void Defeat()
     }
 }
     
-void IncCargosCaptured()
+void Simulation::IncCargosCaptured()
 {
     counters.cargos_captured++;
 }
 
-void IncPiratesDefeated()
+void Simulation::IncPiratesDefeated()
 {
     counters.pirates_defeated++;
 }
 
-void IncCapturedsRescued()
+void Simulation::IncCapturedsRescued()
 {
     counters.captureds_rescued++;
 }
 
-void IncEscortsExited()
+void Simulation::IncEscortsExited()
 {
     counters.escorts_exited++;
 }
 
-void IncCargosEntered()
+void Simulation::IncCargosEntered()
 {
     counters.cargos_entered++;
 }
 
-void IncPiratesExited()
+void Simulation::IncPiratesExited()
 {
     counters.pirates_exited++;
 }
 
-void IncEscortsEntered()
+void Simulation::IncEscortsEntered()
 {
     counters.escorts_entered++;
 }
 
-void IncCargosExited()
+void Simulation::IncCargosExited()
 {
     counters.cargos_exited++;
 }
 
-void IncPiratesEntered()
+void Simulation::IncPiratesEntered()
 {
     counters.pirates_entered++;
 }
@@ -137,6 +138,7 @@ void Simulation::Update()
     Rescue();
 }
     
+/*
 void Simulation::Reset()
 {
     for (int i = 0; i < num_x; i++)
@@ -147,7 +149,7 @@ void Simulation::Reset()
         }
     }
 }
-/*
+
 int[num_x][num_y] Simulation::Grid()
 {
     Reset();
