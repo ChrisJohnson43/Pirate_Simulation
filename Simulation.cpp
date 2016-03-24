@@ -15,35 +15,14 @@ const int num_y = 20;
 
 
 Simulation::Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB)
-    :   pirate_ships{Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
-        cargo_ships{ Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
-        captured_ships{ Ship_Type::Captured,PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
-        escort_ships{ Ship_Type::Escort, PIRATE_PROB, CARGO_PROB, ESCORT_PROB}, 
+    :   pirate_ships{&counters, Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
+        cargo_ships{&counters, Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
+        captured_ships{&counters, Ship_Type::Captured,PIRATE_PROB, CARGO_PROB, ESCORT_PROB},
+        escort_ships{&counters, Ship_Type::Escort, PIRATE_PROB, CARGO_PROB, ESCORT_PROB}, 
         pirate_prob(PIRATE_PROB),
         cargo_prob(CARGO_PROB),
         escort_prob(ESCORT_PROB) {}
 
-/*        
-{
-    pirate_ships = Ships(Ship_Type::Pirate, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
-    cargo_ships = Ships( Ship_Type::Cargo, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
-    captured_ships = Ships( Ship_Type::Captured,PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
-    escort_ships = Ships( Ship_Type::Escort, PIRATE_PROB, CARGO_PROB, ESCORT_PROB);
-
-    Counters = { 
-        0,      // cargos_exited 
-        0,      // cargos_entered
-        0,      // cargos_captured
-        0,      // escorts_exited
-        0,      // escorts_entered
-        0,      // pirates_exited
-        0,      // pirates_entered
-        0,      // pirates_defeated
-        0,      // captureds_rescued
-    };
-    grid[num_x][num_y];
-}
-*/
 Simulation::~Simulation()
 {
 }
@@ -77,56 +56,12 @@ void Simulation::Defeat()
         p_end = pirate_ships.End();
         for ( ; p_begin != p_end; p_end++){
             if (p_begin->IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
+                counters.IncPiratesDefeated();
                 pirate_ships.RemoveShip(p_begin->Value());
                 break;
             }
         }
     }
-}
-    
-void Simulation::IncCargosCaptured()
-{
-    counters.cargos_captured++;
-}
-
-void Simulation::IncPiratesDefeated()
-{
-    counters.pirates_defeated++;
-}
-
-void Simulation::IncCapturedsRescued()
-{
-    counters.captureds_rescued++;
-}
-
-void Simulation::IncEscortsExited()
-{
-    counters.escorts_exited++;
-}
-
-void Simulation::IncCargosEntered()
-{
-    counters.cargos_entered++;
-}
-
-void Simulation::IncPiratesExited()
-{
-    counters.pirates_exited++;
-}
-
-void Simulation::IncEscortsEntered()
-{
-    counters.escorts_entered++;
-}
-
-void Simulation::IncCargosExited()
-{
-    counters.cargos_exited++;
-}
-
-void Simulation::IncPiratesEntered()
-{
-    counters.pirates_entered++;
 }
 
 void Simulation::Update()
@@ -217,6 +152,7 @@ void Simulation::Capture()
        for ( ; car_begin != car_end; car_end++){
             if (car_begin->IsAdjacent(p_begin->Xpos(), p_begin->Ypos())){
                 p_begin->SetCaptured(true);
+                counters.IncCargosCaptured();
                 // create new captured ship in the same position as the cargo
                 // ship
                 captured_ships.AddCapturedShip(car_begin->Xpos(), car_begin->Ypos());
@@ -246,6 +182,7 @@ void Simulation::Rescue()
             if (cap_begin->IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
                 // cap_begin points to an adjacent captured.  create cargo in
                 // its place.  then remove captured
+                counters.IncCapturedsRescued();
                 cargo_ships.AddCargoShip(cap_begin->Xpos(), cap_begin->Ypos());
                 captured_ships.RemoveShip(cap_begin->Value());
                 break;
@@ -254,9 +191,27 @@ void Simulation::Rescue()
     }
 }
 
-const Counts* Simulation::GetCounters() const
+Counts* Simulation::GetCounters() 
 {
     return &counters;
 }
 
+void Simulation::AddCargoShip(int x, int y)
+{
+    cargo_ships.AddCargoShip(x, y);
+}
 
+void Simulation::AddEscortShip(int x, int y)
+{
+    escort_ships.AddEscortShip(x, y);
+}
+
+void Simulation::AddPirateShip(int x, int y)
+{
+    pirate_ships.AddPirateShip(x, y);
+}
+
+void Simulation::AddCapturedShip(int x, int y)
+{
+    captured_ships.AddCapturedShip(x, y);
+}

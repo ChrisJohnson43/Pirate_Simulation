@@ -4,7 +4,7 @@
 // Date:    Feb. 21, 2016
 //=======================================================================
 
-#define CATCH_CONFIG_MAIN
+//#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 #include"Ship_Type_Enum.hpp"
 #include"Ship.hpp"

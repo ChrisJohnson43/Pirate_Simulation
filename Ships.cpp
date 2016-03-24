@@ -10,6 +10,7 @@
 #include"Ship.hpp"
 #include"RandomEvent.hpp"
 #include<iostream>            
+#include"Counts.hpp"
 
 // The following ints are the percentage chance that a ship of that type will be
 // spwaned each time period
@@ -17,6 +18,13 @@ int Ships::num_cargos = 0;
 int Ships::num_escorts=0;
 int Ships::num_pirates=0;
 int Ships::num_captureds=0;
+
+Ships::Ships(Counts* count, Ship_Type::Enum ship_type, int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB) :    
+        type(ship_type),
+        pirate_prob(PIRATE_PROB),
+        cargo_prob(CARGO_PROB),
+        escort_prob(ESCORT_PROB),
+        count_ptr(count) {}
 
 void Ships::Move() {
     Ship* ship_ptr;
@@ -26,6 +34,20 @@ void Ships::Move() {
         ship_ptr = &(*it);
         if (IsOutOfBounds(ship_ptr))
         {
+            switch (type){
+                case Ship_Type::Escort:
+                    count_ptr->IncEscortsExited();
+                    break;
+                case Ship_Type::Pirate:
+                    count_ptr->IncPiratesExited();
+                    break;
+                case Ship_Type::Cargo:
+                    count_ptr->IncCargosExited();
+                    break;
+                case Ship_Type::Captured:
+                    break;
+    }
+
             RemoveShip(it->Value()); 
         }
     }
@@ -90,6 +112,7 @@ Ships::Ships(Ship_Type::Enum ship_type, int PIRATE_PROB, int CARGO_PROB, int ESC
     pirate_prob = PIRATE_PROB;
     cargo_prob = CARGO_PROB;
     escort_prob = ESCORT_PROB;
+    count_ptr = NULL;
 }
 
 Ships::~Ships()
@@ -100,24 +123,28 @@ void Ships::AddCargoShip(int x, int y) {
     Ship ship = Ship(x, y, num_cargos, Ship_Type::Cargo);
     ship_list.push_front (ship);
     num_cargos++;
+    count_ptr->IncCargosEntered();
 }
    
 void Ships::AddPirateShip(int x, int y) {
     Ship ship = Ship(x, y, num_pirates, Ship_Type::Pirate);
     ship_list.push_front (ship);
     num_pirates++;
+    count_ptr->IncPiratesEntered();
 }
 
 void Ships::AddEscortShip(int x, int y) {
     Ship ship = Ship(x, y, num_escorts, Ship_Type::Escort);
     ship_list.push_front (ship);
     num_escorts++;
+    count_ptr->IncEscortsEntered();
 }
  
 void Ships::AddCapturedShip(int x, int y) {
     Ship ship = Ship(x, y, num_captureds, Ship_Type::Captured);
     ship_list.push_front (ship);
     num_captureds++;
+    
 }
 
 void Ships::RemoveShip(int val) {

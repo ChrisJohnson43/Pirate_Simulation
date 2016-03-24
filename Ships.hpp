@@ -10,10 +10,12 @@
 #include"Ship_Type_Enum.hpp"
 #include"Ship.hpp"
 #include<forward_list>
+#include"Counts.hpp"
 
 class Ships
 {
 public:
+    Ships(Counts* count, Ship_Type::Enum, int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB);
     Ships(Ship_Type::Enum ship_type, int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB);
     virtual ~Ships ();
     void Move();            // iterates through forward_list and calls Ship::Move() for each ship
@@ -32,6 +34,7 @@ public:
     void RemoveCaptured();  // removes all Ships with Ship.captured == true
 
 private:
+    Counts* count_ptr;
     int pirate_prob;
     int cargo_prob;
     int escort_prob;
