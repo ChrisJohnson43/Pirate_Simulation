@@ -12,8 +12,6 @@
 #include<iostream>            
 #include"Counts.hpp"
 
-// The following ints are the percentage chance that a ship of that type will be
-// spwaned each time period
 int Ships::num_cargos = 0;
 int Ships::num_escorts=0;
 int Ships::num_pirates=0;
@@ -46,9 +44,8 @@ void Ships::Move() {
                     break;
                 case Ship_Type::Captured:
                     break;
-    }
-
-            RemoveShip(it->Value()); 
+            }
+           RemoveShip(it->Value()); 
         }
     }
 }
@@ -147,7 +144,10 @@ void Ships::AddCapturedShip(int x, int y) {
     
 }
 
+bool remove_val(Ship& ship) {return (ship.Value() == 0);}
+
 void Ships::RemoveShip(int val) {
+    /*
     Ship* ship_ptr;
     auto prev_it = ship_list.before_begin();
     for (auto it = ship_list.begin(); it != ship_list.end(); it++) {
@@ -157,6 +157,8 @@ void Ships::RemoveShip(int val) {
         }
         prev_it++;
     }
+    */
+    ship_list.remove_if(remove_val);
 }
 
 std::forward_list<Ship>::iterator Ships::Begin() 

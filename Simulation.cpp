@@ -54,7 +54,7 @@ void Simulation::Defeat()
     for ( ; e_begin != e_end; e_begin++){
         p_begin = pirate_ships.Begin();
         p_end = pirate_ships.End();
-        for ( ; p_begin != p_end; p_end++){
+        for ( ; p_begin != p_end; p_begin++){
             if (p_begin->IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
                 counters.IncPiratesDefeated();
                 pirate_ships.RemoveShip(p_begin->Value());
@@ -149,7 +149,7 @@ void Simulation::Capture()
     for ( ; p_begin != p_end; p_begin++){
        car_begin = cargo_ships.Begin();
        car_end = cargo_ships.End();
-       for ( ; car_begin != car_end; car_end++){
+       for ( ; car_begin != car_end; car_begin++){
             if (car_begin->IsAdjacent(p_begin->Xpos(), p_begin->Ypos())){
                 p_begin->SetCaptured(true);
                 counters.IncCargosCaptured();
