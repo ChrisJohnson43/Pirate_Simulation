@@ -9,6 +9,8 @@
 #include"Ship.hpp"
 #include"Ships.hpp"
 
+const int X = 35;
+const int Y = 20;
 class Simulation
 {
   private:
@@ -17,21 +19,22 @@ class Simulation
     Ships escort_ships;
     Ships cargo_ships;
     Counts counters;        // Struct that holds the 9 Counts
-    static const int num_x; // number of columns in our grid (used to gen a spawned ships location)
-    static const int num_y;     // number of rows in our grid (used to gen a spawned ships location)
     int pirate_prob;
     int cargo_prob;
     int escort_prob;
-    //int grid[num_x][num_y];          // dynamically allocated 2-D array that is initialized to -1's
+    enum Enum { Captured, Cargo, Escort, Pirate};
+    int grid[X][Y][4];          // dynamically allocated 3-D array.  grid[1][1][1] represents the number of Cargo ships are at (1, 1). Captured==0, Cargo==1, Escort==2, Pirate==3
     // The following 5 methods execute 1 time unit of the simulation and should be called in order by
     // Simulation::Update();
     void Generate();        // Randomly generates ships for Cargos, Pirates, Escorts
+    void BuildGrid();      
     
   public:
+    typedef int (&gridXxYx4)[X][Y][4];
     Simulation(int PIRATE_PROB, int CARGO_PROB, int ESCORT_PROB);
     virtual ~Simulation();
     Counts* GetCounters();     // returns reference to the counters struct
-    //int[num_x][num_y] Grid();     // return pointer to grid of Map (location of all the ships)
+    Simulation::gridXxYx4 Grid();     // return pointer to grid of Map (location of all the ships)
     void Update();          // Runs one time unit of Simulation
     void Reset();		// clears 2-D grid
     // the following four functions are added for testing purposes
