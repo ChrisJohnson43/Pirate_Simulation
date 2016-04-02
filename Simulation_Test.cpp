@@ -265,12 +265,12 @@ SCENARIO("Testing Simulation class."){
             sim.AddPirateShip(2, 0);           
             sim.AddPirateShip(1, 0);
             sim.AddEscortShip(2, 2);
+            //sim.AddEscortShip(3, 3);
             
             sim.Defeat();
 
             // 1 pirate and 1 escort have entered and 1 pirate should have been
             // defeated.
-            /*
             REQUIRE(count_ptr->CargosExited() == 0);
             REQUIRE(count_ptr->CargosEntered() == 0);
             REQUIRE(count_ptr->EscortsExited() == 0);
@@ -280,8 +280,230 @@ SCENARIO("Testing Simulation class."){
             REQUIRE(count_ptr->PiratesDefeated() == 0);
             REQUIRE(count_ptr->CapturedsRescued() == 0);
             REQUIRE(count_ptr->CargosCaptured() == 0);  
-            */
         }
+        WHEN("an escort is surrounded by pirates that are 2 grids away and another escort is adjacent to the first"){
+            sim.AddPirateShip(0, 0);
+            sim.AddPirateShip(0, 1);
+            sim.AddPirateShip(0, 2);
+            sim.AddPirateShip(0, 3);           
+            sim.AddPirateShip(0, 4);
+            sim.AddPirateShip(1, 4);
+            sim.AddPirateShip(2, 4);           
+            sim.AddPirateShip(3, 4);
+            sim.AddPirateShip(4, 4);           
+            sim.AddPirateShip(4, 3);
+            sim.AddPirateShip(4, 2);           
+            sim.AddPirateShip(4, 1);
+            sim.AddPirateShip(4, 0);           
+            sim.AddPirateShip(3, 0);
+            sim.AddPirateShip(2, 0);           
+            sim.AddPirateShip(1, 0);
+            sim.AddEscortShip(2, 2);
+            sim.AddEscortShip(3, 3);
+            
+            sim.Defeat();
+
+            // 1 pirate and 1 escort have entered and 1 pirate should have been
+            // defeated.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 0);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==2);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 16);
+            REQUIRE(count_ptr->PiratesDefeated() == 1);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 0);  
+        }
+
+
+        //==================================Test Capture()=====================
+        WHEN("a pirate and cargo occupy the same point"){
+            sim.AddPirateShip(0, 0);
+            sim.AddCargoShip(0, 0);
+            
+            sim.Capture();
+
+            // 1 pirate and 1 cargo have entered and 1 cargo should have been
+            // captured. 
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 1);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+        WHEN("a pirate is diagonally opposite a cargo"){
+            sim.AddPirateShip(3, 1);
+            sim.AddCargoShip(2, 0);
+            
+            sim.Capture();
+
+            // 1 pirate and 1 cargo have entered and 1 cargo should have been
+            // defeated.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 1);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+        WHEN("a pirate is below a cargo"){
+            sim.AddPirateShip(5, 1);
+            sim.AddCargoShip(5, 0);
+            
+            sim.Capture();
+
+            // 1 pirate and 1 cargo have entered and 1 cargo should have been
+            // captured.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 1);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+        WHEN("a pirate is above a cargo"){
+            sim.AddPirateShip(7, 0);
+            sim.AddCargoShip(7, 1);
+            
+            sim.Capture();
+
+            // 1 pirate and 1 cargo have entered and 1 cargo should have been
+            // captured.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 1);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+        WHEN("there is a cargo ship both above and diagonally opposite a pirate"){
+            sim.AddCargoShip(0, 3);
+            sim.AddCargoShip(1, 3);           
+            sim.AddPirateShip(1, 4);
+            
+            sim.Capture();
+
+            // 2 cargos and 1 pirate have entered and 1 cargo should have been
+            // captured.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 2);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+        WHEN("a pirate is surrounded by cargos"){
+            sim.AddCargoShip(0, 0);
+            sim.AddCargoShip(0, 1);           
+            sim.AddCargoShip(0, 2);
+            sim.AddCargoShip(1, 0);           
+            sim.AddCargoShip(1, 1);
+            sim.AddCargoShip(1, 2);           
+            sim.AddCargoShip(2, 0);
+            sim.AddCargoShip(2, 1);           
+            sim.AddCargoShip(2, 2);
+            sim.AddPirateShip(1, 1);
+            
+            sim.Capture();
+
+            // 1 pirate and 9 cargos have entered and 1 cargo should have been
+            // captured.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 9);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+
+        WHEN("a pirate is surrounded by cargos that are 2 grids away"){
+            sim.AddCargoShip(0, 0);
+            sim.AddCargoShip(0, 1);
+            sim.AddCargoShip(0, 2);
+            sim.AddCargoShip(0, 3);           
+            sim.AddCargoShip(0, 4);
+            sim.AddCargoShip(1, 4);
+            sim.AddCargoShip(2, 4);           
+            sim.AddCargoShip(3, 4);
+            sim.AddCargoShip(4, 4);           
+            sim.AddCargoShip(4, 3);
+            sim.AddCargoShip(4, 2);           
+            sim.AddCargoShip(4, 1);
+            sim.AddCargoShip(4, 0);           
+            sim.AddCargoShip(3, 0);
+            sim.AddCargoShip(2, 0);           
+            sim.AddCargoShip(1, 0);
+            sim.AddPirateShip(2, 2);
+            
+            sim.Capture();
+
+            // 1 pirate and 16 cargos have entered and 0 cargo should have been
+            // captured.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 16);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 1);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 0);  
+        }
+        WHEN("an pirate is surrounded by cargos that are 2 grids away and another pirate is adjacent to the first"){
+            sim.AddCargoShip(0, 0);
+            sim.AddCargoShip(0, 1);
+            sim.AddCargoShip(0, 2);
+            sim.AddCargoShip(0, 3);           
+            sim.AddCargoShip(0, 4);
+            sim.AddCargoShip(1, 4);
+            sim.AddCargoShip(2, 4);           
+            sim.AddCargoShip(3, 4);
+            sim.AddCargoShip(4, 4);           
+            sim.AddCargoShip(4, 3);
+            sim.AddCargoShip(4, 2);           
+            sim.AddCargoShip(4, 1);
+            sim.AddCargoShip(4, 0);           
+            sim.AddCargoShip(3, 0);
+            sim.AddCargoShip(2, 0);           
+            sim.AddCargoShip(1, 0);
+            sim.AddPirateShip(2, 2);
+            sim.AddPirateShip(3, 3);
+            
+            sim.Capture();
+
+            // 2 pirate and 16 cargos have entered and 1 cargo should have been
+            // captured.
+            REQUIRE(count_ptr->CargosExited() == 0);
+            REQUIRE(count_ptr->CargosEntered() == 16);
+            REQUIRE(count_ptr->EscortsExited() == 0);
+            REQUIRE(count_ptr->EscortsEntered() ==0);
+            REQUIRE(count_ptr->PiratesExited() == 0);
+            REQUIRE(count_ptr->PiratesEntered() == 2);
+            REQUIRE(count_ptr->PiratesDefeated() == 0);
+            REQUIRE(count_ptr->CapturedsRescued() == 0);
+            REQUIRE(count_ptr->CargosCaptured() == 1);  
+        }
+
     }
 }
 
