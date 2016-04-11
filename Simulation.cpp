@@ -174,12 +174,12 @@ void Simulation::Rescue()
     for ( ; e_begin != e_end; e_begin++){
         cap_begin = captured_ships.Begin();
         cap_end = captured_ships.End();
-        for ( ; cap_begin != cap_end; cap_end++){
+        for ( ; cap_begin != cap_end; cap_begin++){
             if (cap_begin->IsAdjacent(e_begin->Xpos(), e_begin->Ypos())){
                 // cap_begin points to an adjacent captured.  create cargo in
                 // its place.  then remove captured
                 counters.IncCapturedsRescued();
-                cargo_ships.AddCargoShip(cap_begin->Xpos(), cap_begin->Ypos());
+                cargo_ships.AddCargoShip(cap_begin->Xpos(), cap_begin->Ypos(), false);
                 captured_ships.RemoveShip(cap_begin->Value());
                 break;
             }
@@ -192,9 +192,9 @@ Counts* Simulation::GetCounters()
     return &counters;
 }
 
-void Simulation::AddCargoShip(int x, int y)
+void Simulation::AddCargoShip(int x, int y, bool new_ship)
 {
-    cargo_ships.AddCargoShip(x, y);
+    cargo_ships.AddCargoShip(x, y, new_ship);
 }
 
 void Simulation::AddEscortShip(int x, int y)

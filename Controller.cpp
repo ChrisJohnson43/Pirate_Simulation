@@ -9,11 +9,10 @@
 
 #include"Counts.hpp"
 #include"Ship_Type_Enum.hpp"
-#include"Ship.hpp"
-#include"Ships.hpp"
-#include"Simulation.hpp"
-#include"Console.hpp"
 #include"Controller.hpp"
+
+class Simulation;
+class Console;
 
 Controller::Controller() : 
     steps_left {0}, 
@@ -21,10 +20,11 @@ Controller::Controller() :
     steps {0},
     sim {40, 50, 25},
     open_flag {true},
-    console {&this} {}
+    X {35}, 
+    Y {20} {}
 
 Controller::~Controller(){
-    }
+}
 
 void Controller::CloseSim(){
     open_flag = false;
@@ -44,16 +44,17 @@ void Controller::Start(){
                 }
                 GetState();
                 break;
-        while (steps_left > 0) {
-            
+            case State::STOP:
+                GetState();
+                break;
         }
-    }
 
+    }
 }
 
 void Controller::OneStep(){
     sim.Update();
-    console.Output(sim.GetCounters(), sim.Grid());
+    console.Output(sim.GetCounters(), sim.Grid(), X, Y);
     steps++;
 }
 
@@ -63,4 +64,5 @@ void Controller::GetState(){
         steps_left = console.RunSteps();
     }
 }
+
 

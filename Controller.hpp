@@ -9,8 +9,6 @@
 
 #include"Counts.hpp"
 #include"Ship_Type_Enum.hpp"
-#include"Ship.hpp"
-#include"Ships.hpp"
 #include"Simulation.hpp"
 #include"Console.hpp"
 
@@ -24,9 +22,14 @@ class Controller
         Console console;
         int steps;                  // total number of time steps the sim has run
         bool open_flag;             // flag that will be used to close simulation
+        int X;
+        int Y;
+
     public:
         Controller();
         virtual ~Controller();
         void Start();
         void CloseSim();                // used to set open_flag to false (close sim)
-}
+        void GetState();
+        void OneStep();
+};

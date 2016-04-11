@@ -70,7 +70,7 @@ bool Ships::IsOutOfBounds(Ship* ship_ptr)
 }
 
 void Ships::Gen() {
-    std::cout<<"Ship_Type: " <<type<<std::endl;
+//    std::cout<<"Ship_Type: " <<type<<std::endl;
     int x_grid;
     int y_grid;
     switch (type) {
@@ -81,7 +81,7 @@ void Ships::Gen() {
             {
                 x_grid = 0;
                 y_grid = GetNode(num_y);
-                AddCargoShip(x_grid, y_grid);
+                AddCargoShip(x_grid, y_grid, true);
             }
             break;
          case Ship_Type::Escort:
@@ -116,11 +116,13 @@ Ships::~Ships()
 {
 }
 
-void Ships::AddCargoShip(int x, int y) {
+void Ships::AddCargoShip(int x, int y, bool new_ship) {
     Ship ship = Ship(x, y, num_cargos, Ship_Type::Cargo);
     ship_list.push_front (ship);
     num_cargos++;
-    count_ptr->IncCargosEntered();
+    if (new_ship){
+        count_ptr->IncCargosEntered();
+    }
 }
    
 void Ships::AddPirateShip(int x, int y) {

@@ -23,7 +23,7 @@ public:
     void RemoveShip(int val); // removes ship.value == val from ship_list 
     // The following two methods will either be called by Simulation::Rescue(),
     // Simulation::Capture(), or Ships::Gen().
-    void AddCargoShip(int x, int y);        // adds cargo ship
+    void AddCargoShip(int x, int y, bool new_ship);        // adds cargo ship, bool is used to determine whether count needs to be inc
     void AddCapturedShip(int x, int y);     // adds captured ship
     void AddPirateShip(int x, int y);       // adds pirate ship
     void AddEscortShip(int x, int y);       // adds escort ship

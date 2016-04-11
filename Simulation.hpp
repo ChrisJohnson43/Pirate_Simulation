@@ -11,6 +11,7 @@
 
 const int X = 35;
 const int Y = 20;
+
 class Simulation
 {
   private:
@@ -22,7 +23,7 @@ class Simulation
     int pirate_prob;
     int cargo_prob;
     int escort_prob;
-    enum Enum { Captured, Cargo, Escort, Pirate};
+//    enum Enum { Captured, Cargo, Escort, Pirate};
     int grid[X][Y][4];          // dynamically allocated 3-D array.  grid[1][1][1] represents the number of Cargo ships are at (1, 1). Captured==0, Cargo==1, Escort==2, Pirate==3
     // The following 5 methods execute 1 time unit of the simulation and should be called in order by
     // Simulation::Update();
@@ -38,7 +39,7 @@ class Simulation
     void Update();          // Runs one time unit of Simulation
     void Reset();		// clears 2-D grid
     // the following four functions are added for testing purposes
-    void AddCargoShip(int x, int y);
+    void AddCargoShip(int x, int y, bool new_ship);
     void AddEscortShip(int x, int y);
     void AddPirateShip(int x, int y);
     void AddCapturedShip(int x, int y);
