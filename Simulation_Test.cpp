@@ -83,7 +83,15 @@ SCENARIO("Testing Simulation class."){
                 REQUIRE(count_ptr->PiratesDefeated() == 0);
                 REQUIRE(count_ptr->CapturedsRescued() == 0);
                 REQUIRE(count_ptr->CargosCaptured() == 0);  
+
+                count_ptr = sim.GetCounters();
+
+                REQUIRE(count_ptr->Cargos() == 5);
+                REQUIRE(count_ptr->Pirates() == 5);
+                REQUIRE(count_ptr->Captureds() == 5);
+                REQUIRE(count_ptr->Escorts() == 5);
                
+                
             }
         }
         WHEN("there is 5 of each ship and 3 placed where they should exit.  then call sim::Move()"){
@@ -126,6 +134,13 @@ SCENARIO("Testing Simulation class."){
             REQUIRE(count_ptr->CapturedsRescued() == 0);
             REQUIRE(count_ptr->CargosCaptured() == 0);  
 
+            count_ptr = sim.GetCounters();
+
+//            REQUIRE(count_ptr->Cargos() == 2);
+            REQUIRE(count_ptr->Pirates() == 2);
+            REQUIRE(count_ptr->Captureds() == 2);
+            REQUIRE(count_ptr->Escorts() == 2);
+           
             // 3-D int array to check the Simulation::Grid()
             Simulation::gridXxYx4 grid = sim.Grid();            
             

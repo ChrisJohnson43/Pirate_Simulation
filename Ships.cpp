@@ -45,6 +45,7 @@ void Ships::Move() {
                 case Ship_Type::Captured:
                     break;
             }
+            it->SetRemoveFlag();
            RemoveShip(it->Value()); 
         }
     }
@@ -146,7 +147,7 @@ void Ships::AddCapturedShip(int x, int y) {
     
 }
 
-bool remove_val(Ship& ship) {return (ship.Value() == 0);}
+bool remove_flag(Ship& ship) {return (ship.RemoveFlag());}
 
 void Ships::RemoveShip(int val) {
     /*
@@ -160,7 +161,7 @@ void Ships::RemoveShip(int val) {
         prev_it++;
     }
     */
-    ship_list.remove_if(remove_val);
+    ship_list.remove_if(remove_flag);
 }
 
 std::forward_list<Ship>::iterator Ships::Begin() 

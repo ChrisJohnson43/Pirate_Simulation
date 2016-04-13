@@ -88,6 +88,10 @@ void Console::OutputCounts(Counts* counts, grid3D& grid, int x, int y) const {
     count_out<<"Captureds Rescued: " + std::to_string(counts->CapturedsRescued()) + "\n";
     count_out<<"Escorts Entered: " + std::to_string(counts->EscortsEntered()) + "\n";
     count_out<<"Escorts Exited: " + std::to_string(counts->EscortsExited()) + "\n";
+    count_out<<"Cargos: " + std::to_string(counts->Cargos()) + "\n";
+    count_out<<"Captureds: " + std::to_string(counts->Captureds()) + "\n";
+    count_out<<"Pirates: " + std::to_string(counts->Pirates()) + "\n";
+    count_out<<"Escorts: " + std::to_string(counts->Escorts()) + "\n";
     count_out<< "====================================================================================\n";
     for(int i = 0; i < y; i++){
         for (int j=0; j<x; j++){

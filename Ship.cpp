@@ -22,6 +22,7 @@ Ship::Ship(int x, int y, int val, Ship_Type::Enum ship_type)
     type = ship_type;
     d_x = 0;
     d_y = 0;
+    remove_flag = false;
 
     if (type == Ship_Type::Pirate)  d_y = -1;
     else if ( type == Ship_Type::Cargo) d_x = 1;
@@ -105,5 +106,15 @@ void Ship::SetCaptured(bool flag)
 bool Ship::GetCaptured()
 {
     return captured;
+}
+
+void Ship::SetRemoveFlag()
+{
+    remove_flag = true;
+}
+
+bool Ship::RemoveFlag()
+{
+    return remove_flag;
 }
 

@@ -18,11 +18,11 @@ int main()
     std::cout << "Escort:: "<<Ship_Type::Escort<<std::endl;
     std::cout << "Captured: "<<Ship_Type::Captured<<std::endl;
     std::cout << "Cargo: "<<Ship_Type::Cargo<<std::endl;
-
+/*
     std::ofstream out_file;
     out_file.open("test.txt");
     assert(out_file.is_open());
-
+*/
     Ships p_ships(Ship_Type::Pirate, 40, 50, 25);
     Ships car_ships(Ship_Type::Cargo, 40, 50, 25);
     Ships e_ships{Ship_Type::Escort, 40, 50, 25};
@@ -31,7 +31,7 @@ int main()
     for (int i =0; i < 10; i++)
     {
         p_ships.AddPirateShip(i, num_y - 1);
-        car_ships.AddCargoShip(0, i);
+        car_ships.AddCargoShip(0, i, true);
         e_ships.AddEscortShip(num_x - 1, i);
         cap_ships.AddCapturedShip(i, num_y);
     }     
@@ -57,7 +57,7 @@ int main()
     std::cout<<"Captured Ships"<<std::endl;
 */
 
-    out_file << "Print out all pirate ship (x, y)" << std::endl;
+    //out_file << "Print out all pirate ship (x, y)" << std::endl;
 
     for (int j=1; j < 10; j+=2)
     {
@@ -75,11 +75,11 @@ int main()
     std::forward_list<Ship>::iterator cap_list_end = cap_ships.End();
 
     int i = 1;
-    out_file << "Remove odd value ships." << std::endl;
+    //out_file << "Remove odd value ships." << std::endl;
     for ( ; p_list_begin != p_list_end; p_list_begin++)
     {
          Ship ship = *p_list_begin;
-        out_file  <<i<< "\t("  << ship.Xpos() << ", "<< ship.Ypos()<<")" << "\t\t\t"<<ship.Value()<<std::endl;
+        //out_file  <<i<< "\t("  << ship.Xpos() << ", "<< ship.Ypos()<<")" << "\t\t\t"<<ship.Value()<<std::endl;
         i++;
     }
 
@@ -213,6 +213,6 @@ int main()
 
 */
 
-    out_file.close();
+    //out_file.close();
     return 0;
 }
