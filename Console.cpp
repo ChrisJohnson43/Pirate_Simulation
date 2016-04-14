@@ -150,10 +150,10 @@ State::Enum Console::UserIO(){
 }
 
 int Console::RunSteps(){
-    std::cout<<"Enter the number of time steps to simulate [1, 1000]: ";
+    std::cout<<"Enter the number of time steps to simulate [1, 100000]: ";
     int num = 0;
-    while(std::cin>>num && !(1<=num && num<=1000)){
-        std::cout<<"Sorry "<<num<<" is not in the range [1, 1000]. Try again.\n";
+    while(std::cin>>num && !(1<=num && num<=100000)){
+        std::cout<<"Sorry "<<num<<" is not in the range [1, 100000]. Try again.\n";
     }
     return num;
 }
